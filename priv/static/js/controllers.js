@@ -1,6 +1,9 @@
-function PlayerCtrl($scope, FoosballData) {
-    //$scope.nodes = FoosballData.query({model: 'player'});
+function JoinGameCtrl($scope, FoosballData) {
+    $scope.games = [1,2,"cat"];
 };
+
+function GameCtrl($scope, FoosballData) {
+}
 
 function EciNavBarCtrl($scope) {
     $scope.navitems = [

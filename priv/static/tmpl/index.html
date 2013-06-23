@@ -1,4 +1,4 @@
-<h1>Welcome to foosball server</h1>
+<h2>Welcome to foosball server</h2>
 <div class="row-fluid" style="margin-bottom: 10px">
     <div class="span2" style="margin: 0 auto; float: none">
         <a href="#/newgame" class="btn btn-primary btn-large">New Game</a>
@@ -6,6 +6,10 @@
 </div>
 <div class="row-fluid">
     <div class="span2" style="margin: 0 auto; float: none">
-        <a href="#/newgame" class="btn btn-primary btn-large">Existing game</a>
+        <div ng-controller="JoinGameCtrl">
+            <div class="btn-toolbar" ng-repeat="game in games">
+                <a href="#/newgame" class="btn btn-info">[[game]]</a>
+            </div>
+        </div>
     </div>
 </div>

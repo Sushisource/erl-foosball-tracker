@@ -8,9 +8,9 @@ angular.module('foosball', ['foosballServices']).
        $routeProvider.
         when('/',
             {templateUrl: 'static/tmpl/index.html',
-             controller: PlayerCtrl}).
+             controller: JoinGameCtrl}).
         when('/game',
             {templateUrl: 'static/tmpl/ingame.html',
-             controller: PlayerCtrl}).
-        otherwise({redirectTo: '/', controller: PlayerCtrl});
+             controller: GameCtrl}).
+        otherwise({redirectTo: '/'});
 }]);
