@@ -1,0 +1,3 @@
+-module(fb_player_game, [Id, FbGameId, FbPlayerId]).
+-belongs_to(fb_game).
+-belongs_to(fb_player).

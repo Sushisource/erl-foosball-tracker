@@ -1,0 +1,2 @@
+-module(fb_player, [Id, Name::string()]).
+-has({fb_player_games, many}).

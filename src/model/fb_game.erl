@@ -1,0 +1,2 @@
+-module(fb_game, [Id, Date::datetime()]).
+-has({fb_player_games, many}).
