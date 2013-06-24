@@ -1,6 +1,6 @@
 % Routes file.
 
-% Formats: 
+% Formats:
 %   {"/some/route", [{controller, "Controller"}, {action, "Action"}]}.
 %   {"/some/route", [{controller, "Controller"}, {action, "Action"}, {id, "42"}]}.
 %   {"/(some|any)/route/(\\d+)", [{controller, '$1'}, {action, "Action"}, {id, '$2'}]}.
@@ -15,6 +15,9 @@
 
 % Front page
 {"/", [{controller, "main"}, {action, "index"}]}.
+% Data routes
+{"/data/(\\w+)/?", [{controller, "data"}, {action, "list"}, {model, '$1'}]}.
+{"/data/(\\w+)/(.+)", [{controller, "data"}, {action, "read"}, {model, '$1'}, {id, '$2'}]}.
 
 % 404 File Not Found handler
 % {404, [{controller, "world"}, {action, "lost"}]}.
