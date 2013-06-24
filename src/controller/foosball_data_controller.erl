@@ -4,7 +4,7 @@
 
 read('GET', [Model, Id]) ->
   Results = boss_db:find(list_to_atom(Model), [id = Id]),
-  {json, [{result, Results}]}.
+  {json, Results}.
 
 list('GET', [Model]) ->
   Args = case Model of

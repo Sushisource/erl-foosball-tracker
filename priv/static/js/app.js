@@ -9,7 +9,7 @@ angular.module('foosball', ['foosballServices']).
         when('/',
             {templateUrl: 'static/tmpl/index.html',
              controller: JoinGameCtrl}).
-        when('/game',
+        when('/game/:gameid',
             {templateUrl: 'static/tmpl/ingame.html',
              controller: GameCtrl}).
         otherwise({redirectTo: '/'});
