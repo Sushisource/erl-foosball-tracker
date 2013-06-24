@@ -1,11 +1,8 @@
 function JoinGameCtrl($scope, FoosballData) {
-    $scope.games = FoosballData.query({model: 'fb_game', args:'inprog=true'});
+    $scope.games = FoosballData.query({model: 'fb_game',
+                                       args:'filter=inprog equals true'});
 };
 
-function GameCtrl($scope, FoosballData) {
-    $scope.game = FoosballData.query(
-        {model: 'fb_game', id:'fb_game-1'},
-        //Get the first item, since we're only concerned about one
-        function(){$scope.game = $scope.game[0]}
-    );
+function GameCtrl($scope, GameData) {
+    $scope.data = GameData.query({id:'fb_game-1'});
 }

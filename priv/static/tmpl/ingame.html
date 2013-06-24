@@ -1,1 +1,5 @@
-<h2>Game [[ game.id ]]</h2>
+<h2>Game [[ data.this.id ]]</h2>
+<span class="badge badge-info" ng-repeat="player in data.players"
+      style="margin-right: 10px;">
+    [[ player.name ]]
+</span>

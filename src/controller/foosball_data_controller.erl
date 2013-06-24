@@ -7,9 +7,10 @@ read('GET', [Model, Id]) ->
   {json, Results}.
 
 list('GET', [Model]) ->
-  Args = case Model of
-    "fb_game" -> [{inprog, 'equals', Req:query_param("inprog", false)}];
-    otherwise -> []
+  Args = case Req:query_param("filter") of
+    String -> [Col, Op, Val] = string:tokens(String, " "),
+              [{list_to_atom(Col), list_to_atom(Op), Val}];
+    undefined -> []
   end,
   Results = boss_db:find(list_to_atom(Model), Args),
   {json, Results}.
