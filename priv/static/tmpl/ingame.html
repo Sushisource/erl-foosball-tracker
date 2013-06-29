@@ -1,5 +1,20 @@
-<h2>Game [[ data.this.id ]]</h2>
-<span class="badge badge-info" ng-repeat="player in data.players"
-      style="margin-right: 10px;">
+<style>
+    .yellow-team {
+    background-color: rgb(197, 174, 0);
+    }
+    .black-team {
+    background-color: black;
+    }
+</style>
+
+<h2>Game [[ data.this.id ]]
+    <small>
+        <a href="#/" class="btn btn-small btn-primary pull-right"
+           style="margin-top: 10px;">home</a>
+    </small>
+</h2>
+<span class="badge badge-info [[ player.team ]]-team"
+      ng-repeat="player in data.players"
+      style="margin-right: 10px; margin-bottom: 3px;">
     [[ player.name ]]
 </span>

@@ -1,3 +1,3 @@
--module(fb_player_game, [Id, FbGameId, FbPlayerId]).
+-module(fb_player_game, [Id, FbGameId, FbPlayerId, Team]).
 -belongs_to(fb_game).
 -belongs_to(fb_player).
