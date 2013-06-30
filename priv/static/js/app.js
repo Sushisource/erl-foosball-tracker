@@ -7,8 +7,11 @@ angular.module('foosball', ['foosballServices']).
        $interpolateProvider.endSymbol(']]');
        $routeProvider.
         when('/',
-            {templateUrl: 'static/tmpl/index.html',
+            {templateUrl: 'static/tmpl/welcome.html',
              controller: JoinGameCtrl}).
+        when('/login',
+            {templateUrl: 'static/tmpl/login.html',
+             controller: LoginCtrl}).
         when('/game/:gameid',
             {templateUrl: 'static/tmpl/ingame.html',
              controller: GameCtrl}).
