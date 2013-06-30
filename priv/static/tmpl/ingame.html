@@ -5,8 +5,29 @@
     .black-team {
     background-color: black;
     }
+    .foostable {
+    width: 244px;
+    height: 366px;
+    margin-top: 10px;
+    text-overflow: ellipsis;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    white-space: nowrap;
+    table-layout: fixed;
+    }
+    .foostable td {
+    padding: 0px;
+    height: 60px;
+    width: 60px;
+    }
+    .foostable thead th {
+    vertical-align: middle;
+    text-align: center;
+    width: 60px;
+    }
     .foosguy {
-    background-color: #CCCCCC;
+    background-color: #5faee3;
+    border-color: #ccc;
     }
 </style>
 
@@ -21,12 +42,12 @@
       style="margin-right: 10px; margin-bottom: 3px;">
     [[ player.name ]]
 </span>
-<table class="table table-bordered">
+<table class="table table-bordered foostable">
     <thead>
     <tr>
         <th>Goalie</th>
         <th>Defense</th>
-        <th>Five Man</th>
+        <th>5-Man</th>
         <th>Offense</th>
     </tr>
     </thead>
