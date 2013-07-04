@@ -15,10 +15,25 @@ function GameCtrl($scope, GameData) {
     $scope.data = GameData.query({id:'fb_game-1'});
 }
 
-function LoginCtrl($scope, $location) {
-    $scope.hi = "hi";
-    $scope.login = function() {
+function LoginCtrl($scope, $location, $http) {
+    $scope.forcename = function() {
         localStorage.setItem("playername", $scope.uname)
         $location.path("/");
+    }
+    $scope.login = function() {
+        // send note to server
+        $http({method: 'POST', url: '/login', data: 'loginName=' + $scope.uname}).
+            success(function(data, status, headers, config){
+                var already_exists = data.response;
+                if(already_exists === true) {
+                    $scope.result = "Username already taken, try another";
+                    $scope.iswear = true;
+                } else {
+                    $scope.forcename();
+                }
+            }).
+            error(function(data, status, headers, config) {
+                $scope.result = "Error logging in"
+            });
     }
 }

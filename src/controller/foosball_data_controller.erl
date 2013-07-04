@@ -17,4 +17,3 @@ list('GET', [Model]) ->
 
 list('GET') ->
   {json, []}.
-
