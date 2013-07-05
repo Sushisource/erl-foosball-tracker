@@ -1,18 +1,23 @@
-<h2>Welcome to foosball server</h2>
-<h3>[[ playername ]]</h3>
-<div class="row-fluid" style="margin-bottom: 10px">
-    <div class="span2" style="margin: 0 auto; float: none">
-        <a href="#/newgame" class="btn btn-success btn-large">New Game</a>
+<div class="containter-fluid">
+    <h2>Welcome to foosball server</h2>
+
+    <h3>[[ playername ]]</h3>
+
+    <div class="row-fluid" style="margin-bottom: 10px">
+        <div class="span2" style="margin: 0 auto; float: none">
+            <a href="#/newgame" class="btn btn-success btn-large">New Game</a>
+        </div>
     </div>
-</div>
-<br/>
-<h4>Existing games</h4>
-<div class="row-fluid">
-    <div class="span2" style="margin: 0 auto; float: none">
-        <div ng-controller="JoinGameCtrl">
-            <div class="btn-toolbar" ng-repeat="game in games">
-                <a href="#/game/[[game.id]]"
-                   class="btn btn-info">[[game.date]]</a>
+    <br/>
+    <h4>Existing games</h4>
+
+    <div class="row-fluid">
+        <div class="span2" style="margin: 0 auto; float: none">
+            <div ng-controller="JoinGameCtrl">
+                <div class="btn-toolbar" ng-repeat="game in games">
+                    <a href="#/game/[[game.id]]"
+                       class="btn btn-info">[[game.date]]</a>
+                </div>
             </div>
         </div>
     </div>

@@ -1,87 +1,63 @@
-<style>
-    .yellow-team {
-    background-color: rgb(197, 174, 0);
-    }
-    .black-team {
-    background-color: black;
-    }
-    .foostable {
-    width: 244px;
-    height: 366px;
-    margin-top: 10px;
-    text-overflow: ellipsis;
-    overflow-x: hidden;
-    overflow-y: hidden;
-    white-space: nowrap;
-    table-layout: fixed;
-    }
-    .foostable td {
-    padding: 0px;
-    height: 40px;
-    width: 40px;
-    }
-    .foostable thead th {
-    vertical-align: middle;
-    text-align: center;
-    font-size: 10px;
-    width: 40px;
-    }
-    .foosguy {
-    background-color: #5faee3;
-    border-color: #ccc;
-    }
-</style>
+<div class="container-fluid">
+    <link href="/static/css/ingame.css" rel="stylesheet">
+    <h2>Game [[ data.this.id ]]
+        <small>
+            <a href="#/" class="btn btn-small btn-primary pull-right"
+               style="margin-top: 10px;">home</a>
+        </small>
+    </h2>
+    <span class="badge badge-info [[ player.team ]]-team"
+          ng-repeat="player in data.players"
+          style="margin-right: 10px; margin-bottom: 3px;">
+        [[ player.name ]]
+    </span>
+    <br/>
 
-<h2>Game [[ data.this.id ]]
-    <small>
-        <a href="#/" class="btn btn-small btn-primary pull-right"
-           style="margin-top: 10px;">home</a>
-    </small>
-</h2>
-<span class="badge badge-info [[ player.team ]]-team"
-      ng-repeat="player in data.players"
-      style="margin-right: 10px; margin-bottom: 3px;">
-    [[ player.name ]]
-</span>
-<table class="table table-bordered foostable">
-    <thead>
-    <tr>
-        <th>Goalie</th>
-        <th>Defense</th>
-        <th>5-Man</th>
-        <th>Offense</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-        <td class="foosguy"></td>
-        <td></td>
-        <td class="foosguy"></td>
-        <td class="foosguy"></td>
-    </tr>
-    <tr>
-        <td></td>
-        <td class="foosguy"></td>
-        <td class="foosguy"></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td class="foosguy"></td>
-        <td></td>
-        <td class="foosguy"></td>
-        <td class="foosguy"></td>
-    </tr>
-    <tr>
-        <td></td>
-        <td class="foosguy"></td>
-        <td class="foosguy"></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td class="foosguy"></td>
-        <td></td>
-        <td class="foosguy"></td>
-        <td class="foosguy"></td>
-    </tr>
-    </tbody>
-</table>
+    <div id="tablecontainer">
+        <div id="tabledummy"></div>
+        <div id="tableinnercontainer">
+            <table class="table table-bordered foostable">
+                <thead>
+                <tr>
+                    <th>Goalie</th>
+                    <th>Defense</th>
+                    <th>5-Man</th>
+                    <th>Offense</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td class="foosguy"></td>
+                    <td></td>
+                    <td class="foosguy"></td>
+                    <td class="foosguy"></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td class="foosguy"></td>
+                    <td class="foosguy"></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td class="foosguy"></td>
+                    <td></td>
+                    <td class="foosguy"></td>
+                    <td class="foosguy"></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td class="foosguy"></td>
+                    <td class="foosguy"></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td class="foosguy"></td>
+                    <td></td>
+                    <td class="foosguy"></td>
+                    <td class="foosguy"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
