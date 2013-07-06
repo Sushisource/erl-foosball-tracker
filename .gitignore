@@ -2,3 +2,4 @@
 ebin/
 log/
 foosball.iml
+priv/static/js/*.map
