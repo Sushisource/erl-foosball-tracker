@@ -14,3 +14,8 @@ info('GET', [Id]) ->
   Players = lists:map(PlayerMaker, PlayerGames),
   {json, [{this, Game}, {players, Players}]}.
 
+score('POST', []) ->
+  case Req:request_body() of
+    LoginName ->
+      {json, [{response, LoginName}]}
+  end.

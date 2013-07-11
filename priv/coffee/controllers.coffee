@@ -14,8 +14,18 @@ foosball.controller 'JoinGameCtrl', ($scope, $location, FoosballData) ->
   )
   $scope.playername = name
 
-foosball.controller 'GameCtrl', ($scope, GameData) ->
+foosball.controller 'GameCtrl', ($scope, $http, GameData) ->
   $scope.data = GameData.query(id: "fb_game-1")
+
+  $scope.score = (guy) ->
+    postme = new Object()
+    postme.pos = guy
+    postme.player = localStorage.getItem("playername")
+    $http(method: "POST", url: "/game/score", data: postme
+    ).success((data, status, headers, config) ->
+      $scope.result = data
+    ).error (data, status, headers, config) ->
+      $scope.result = "Error posting score"
 
 foosball.controller 'LoginCtrl', ($scope, $location, $http) ->
   $scope.forcename = ->
@@ -24,10 +34,7 @@ foosball.controller 'LoginCtrl', ($scope, $location, $http) ->
 
   $scope.login = ->
     # send note to server
-    $http(
-      method: "POST"
-      url: "/login"
-      data: "loginName=" + $scope.uname
+    $http(method: "POST", url: "/login", data: "loginName=" + $scope.uname
     ).success((data, status, headers, config) ->
       already_exists = data.response
       if already_exists is true

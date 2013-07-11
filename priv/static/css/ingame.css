@@ -37,7 +37,7 @@
 .foostable td, .foostable th {
     width: 20%;
     height: 20%;
-    padding: 0px;
+    padding: 0;
 }
 
 .foostable thead th {

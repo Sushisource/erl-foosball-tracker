@@ -18,10 +18,25 @@
     return $scope.playername = name;
   });
 
-  foosball.controller('GameCtrl', function($scope, GameData) {
-    return $scope.data = GameData.query({
+  foosball.controller('GameCtrl', function($scope, $http, GameData) {
+    $scope.data = GameData.query({
       id: "fb_game-1"
     });
+    return $scope.score = function(guy) {
+      var postme;
+      postme = new Object();
+      postme.pos = guy;
+      postme.player = localStorage.getItem("playername");
+      return $http({
+        method: "POST",
+        url: "/game/score",
+        data: postme
+      }).success(function(data, status, headers, config) {
+        return $scope.result = data;
+      }).error(function(data, status, headers, config) {
+        return $scope.result = "Error posting score";
+      });
+    };
   });
 
   foosball.controller('LoginCtrl', function($scope, $location, $http) {

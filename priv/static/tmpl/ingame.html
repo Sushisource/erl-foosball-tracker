@@ -27,37 +27,43 @@
                 </thead>
                 <tbody>
                 <tr>
-                    <td class="foosguy"></td>
+                    <td class="foosguy" ng-click="score('G1')"></td>
                     <td></td>
-                    <td class="foosguy"></td>
-                    <td class="foosguy"></td>
+                    <td class="foosguy" ng-click="score('51')"></td>
+                    <td class="foosguy" ng-click="score('O1')"></td>
                 </tr>
                 <tr>
                     <td></td>
-                    <td class="foosguy"></td>
-                    <td class="foosguy"></td>
+                    <td class="foosguy" ng-click="score('D2')"></td>
+                    <td class="foosguy" ng-click="score('52')"></td>
                     <td></td>
                 </tr>
                 <tr>
-                    <td class="foosguy"></td>
+                    <td class="foosguy" ng-click="score('G3')"></td>
                     <td></td>
-                    <td class="foosguy"></td>
-                    <td class="foosguy"></td>
+                    <td class="foosguy" ng-click="score('53')"></td>
+                    <td class="foosguy" ng-click="score('O3')"></td>
                 </tr>
                 <tr>
                     <td></td>
-                    <td class="foosguy"></td>
-                    <td class="foosguy"></td>
+                    <td class="foosguy" ng-click="score('D4')"></td>
+                    <td class="foosguy" ng-click="score('54')"></td>
                     <td></td>
                 </tr>
                 <tr>
-                    <td class="foosguy"></td>
+                    <td class="foosguy" ng-click="score('G5')"></td>
                     <td></td>
-                    <td class="foosguy"></td>
-                    <td class="foosguy"></td>
+                    <td class="foosguy" ng-click="score('55')"></td>
+                    <td class="foosguy" ng-click="score('O5')"></td>
                 </tr>
                 </tbody>
             </table>
         </div>
+    </div>
+    <div style="margin-top: 20px"></div>
+    <div class="alert" ng-show="result">
+        <button type="button" class="close"
+                data-dismiss="alert">&times;</button>
+        [[ result ]]
     </div>
 </div>
