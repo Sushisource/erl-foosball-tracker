@@ -1,2 +1,3 @@
 -module(fb_game, [Id, Date::datetime(), Inprog::boolean()]).
 -has({fb_player_games, many}).
+-has({fb_scores, many}).

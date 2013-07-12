@@ -14,13 +14,14 @@ foosball.controller 'JoinGameCtrl', ($scope, $location, FoosballData) ->
   )
   $scope.playername = name
 
-foosball.controller 'GameCtrl', ($scope, $http, GameData) ->
-  $scope.data = GameData.query(id: "fb_game-1")
+foosball.controller 'GameCtrl', ($scope, $http, $routeParams, GameData) ->
+  $scope.data = GameData.query(id: $routeParams.gameid)
 
   $scope.score = (guy) ->
     postme = new Object()
     postme.pos = guy
-    postme.player = localStorage.getItem("playername")
+    postme.fb_game_id = $routeParams.gameid
+    postme.fb_player_id = localStorage.getItem("playerid")
     $http(method: "POST", url: "/game/score", data: postme
     ).success((data, status, headers, config) ->
       $scope.result = data

@@ -18,15 +18,16 @@
     return $scope.playername = name;
   });
 
-  foosball.controller('GameCtrl', function($scope, $http, GameData) {
+  foosball.controller('GameCtrl', function($scope, $http, $routeParams, GameData) {
     $scope.data = GameData.query({
-      id: "fb_game-1"
+      id: $routeParams.gameid
     });
     return $scope.score = function(guy) {
       var postme;
       postme = new Object();
       postme.pos = guy;
-      postme.player = localStorage.getItem("playername");
+      postme.fb_game_id = $routeParams.gameid;
+      postme.fb_player_id = localStorage.getItem("playerid");
       return $http({
         method: "POST",
         url: "/game/score",

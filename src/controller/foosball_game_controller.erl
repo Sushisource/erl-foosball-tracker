@@ -15,7 +15,13 @@ info('GET', [Id]) ->
   {json, [{this, Game}, {players, Players}]}.
 
 score('POST', []) ->
-  case Req:request_body() of
-    LoginName ->
-      {json, [{response, LoginName}]}
+  {struct, Body} = mochijson2:decode(Req:request_body()), % Parse JSON
+  Normalize = fun({K, <<V/binary>>}) ->
+    {binary_to_atom(K, utf8), binary_to_list(V)}
+  end,
+  Normalized = lists:map(Normalize, Body),
+  NewScore = boss_record:new(fb_score, Normalized), % Make it into a score
+  case NewScore:save() of
+    {ok, NewScoreRec} -> {json, NewScoreRec};
+    {error, Errors} -> {json, [{errors, Errors}]}
   end.
