@@ -1,3 +1,10 @@
+.yellow-team, .black-team {
+    margin-right: 6px;
+    margin-bottom: 3px;
+    font-size: 11px;
+    padding: 2px;
+}
+
 .yellow-team {
     background-color: rgb(197, 174, 0);
 }

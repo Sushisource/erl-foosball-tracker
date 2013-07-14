@@ -1,14 +1,12 @@
 <div class="container-fluid">
     <link href="/static/css/ingame.css" rel="stylesheet">
-    <h2>Game [[ data.this.id ]]
+    <h4>Game [[ data.this.id ]]
         <small>
-            <a href="#/" class="btn btn-small btn-primary pull-right"
-               style="margin-top: 10px;">home</a>
+            <a href="#/" class="btn btn-small btn-primary pull-right">home</a>
         </small>
-    </h2>
-    <span class="badge badge-info [[ player.team ]]-team"
-          ng-repeat="player in data.players"
-          style="margin-right: 10px; margin-bottom: 3px;">
+    </h4>
+    <span class="label label-info [[ player.team ]]-team"
+          ng-repeat="player in data.players">
         [[ player.name ]]
     </span>
     <br/>
