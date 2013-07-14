@@ -19,16 +19,22 @@
   });
 
   foosball.controller('GameCtrl', function($scope, $http, $routeParams, GameData) {
+    var modal;
+    modal = $("#scoremodal").modal({
+      keyboard: false,
+      backdrop: 'static',
+      show: false
+    });
     $scope.data = GameData.query({
       id: $routeParams.gameid
     });
-    return $scope.score = function(guy) {
+    $scope.confirmscore = function(type) {
       var postme;
       postme = new Object();
-      postme.pos = guy;
+      postme.pos = $scope.guy;
       postme.fb_game_id = $routeParams.gameid;
       postme.fb_player_id = localStorage.getItem("playerid");
-      return $http({
+      $http({
         method: "POST",
         url: "/game/score",
         data: postme
@@ -37,6 +43,17 @@
       }).error(function(data, status, headers, config) {
         return $scope.result = "Error posting score";
       });
+      return $scope.endscore();
+    };
+    $scope.score = function(guy) {
+      if ($scope.guy === void 0) {
+        $scope.guy = guy;
+        return modal.modal('show');
+      }
+    };
+    return $scope.endscore = function() {
+      $scope.guy = void 0;
+      return modal.modal('hide');
     };
   });
 

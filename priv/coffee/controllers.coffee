@@ -15,11 +15,12 @@ foosball.controller 'JoinGameCtrl', ($scope, $location, FoosballData) ->
   $scope.playername = name
 
 foosball.controller 'GameCtrl', ($scope, $http, $routeParams, GameData) ->
+  modal = $("#scoremodal").modal({keyboard: false, backdrop: 'static', show: false})
   $scope.data = GameData.query(id: $routeParams.gameid)
 
-  $scope.score = (guy) ->
+  $scope.confirmscore = (type) ->
     postme = new Object()
-    postme.pos = guy
+    postme.pos = $scope.guy
     postme.fb_game_id = $routeParams.gameid
     postme.fb_player_id = localStorage.getItem("playerid")
     $http(method: "POST", url: "/game/score", data: postme
@@ -27,6 +28,16 @@ foosball.controller 'GameCtrl', ($scope, $http, $routeParams, GameData) ->
       $scope.result = data
     ).error (data, status, headers, config) ->
       $scope.result = "Error posting score"
+    $scope.endscore()
+
+  $scope.score = (guy) ->
+    if $scope.guy is undefined
+      $scope.guy = guy
+      modal.modal('show')
+
+  $scope.endscore = () ->
+    $scope.guy = undefined
+    modal.modal('hide')
 
 foosball.controller 'LoginCtrl', ($scope, $location, $http) ->
   $scope.forcename = ->

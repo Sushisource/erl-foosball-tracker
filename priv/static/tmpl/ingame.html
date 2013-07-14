@@ -59,6 +59,24 @@
         </div>
     </div>
     <div style="margin-top: 20px"></div>
+    <!-- Modal -->
+    <div id="scoremodal" class="modal hide fade" tabindex="-1" role="dialog"
+         aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-header">
+            <h3 id="myModalLabel">score from [[ guy ]]</h3>
+        </div>
+        <div class="modal-body">
+            <button class="btn btn-small btn-primary"
+                    ng-click="confirmscore('typical')">Typical
+            </button>
+            <button class="btn btn-small btn-primary" ng-click="cancelscore()">
+                Bank
+            </button>
+            <button class="btn btn-small btn-danger" ng-click="endscore()"
+                    aria-hidden="true">Cancel
+            </button>
+        </div>
+    </div>
     <div class="alert" ng-show="result">
         <button type="button" class="close"
                 data-dismiss="alert">&times;</button>
