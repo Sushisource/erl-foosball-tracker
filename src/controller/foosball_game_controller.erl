@@ -43,7 +43,6 @@ score('POST', []) ->
       % If this is the last score, close the game and save it.
       {ok, _} = if
         LastScore == true ->
-          io:fwrite("~w~n", [LastScore]),
           PlGame:endgame();
         true ->
           {ok, whatever}
