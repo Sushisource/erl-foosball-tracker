@@ -3,3 +3,4 @@ ebin/
 log/
 foosball.iml
 priv/static/js/*.map
+erl_crash.dump
