@@ -1,85 +1,110 @@
-<div class="container-fluid">
-    <link href="/static/css/ingame.css" rel="stylesheet">
-    <h4>Game [[ data.this.id ]]
-        <small>
-            <a href="#/" class="btn btn-small btn-primary pull-right">home</a>
-        </small>
-    </h4>
+<div class="container">
+    <div class="row" style="margin-bottom: 10px;">
+        <link href="/static/css/ingame.css" rel="stylesheet">
+        <h4>Game [[ data.this.id ]]
+            <small>
+                <a href="#/"
+                   class="btn btn-small btn-primary pull-right">home</a>
+            </small>
+        </h4>
     <span class="label label-info [[ player.team ]]-team"
           ng-repeat="player in data.players">
         [[ player.name ]]
     </span>
-    <br/>
-
-    <div id="tablecontainer">
-        <div id="tabledummy"></div>
-        <div id="tableinnercontainer">
-            <table class="table table-bordered foostable">
-                <thead>
-                <tr>
-                    <th>Goalie</th>
-                    <th>Defense</th>
-                    <th>5-Man</th>
-                    <th>Offense</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td class="foosguy" ng-click="score('G1')"></td>
-                    <td></td>
-                    <td class="foosguy" ng-click="score('51')"></td>
-                    <td class="foosguy" ng-click="score('O1')"></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td class="foosguy" ng-click="score('D2')"></td>
-                    <td class="foosguy" ng-click="score('52')"></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td class="foosguy" ng-click="score('G3')"></td>
-                    <td></td>
-                    <td class="foosguy" ng-click="score('53')"></td>
-                    <td class="foosguy" ng-click="score('O3')"></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td class="foosguy" ng-click="score('D4')"></td>
-                    <td class="foosguy" ng-click="score('54')"></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td class="foosguy" ng-click="score('G5')"></td>
-                    <td></td>
-                    <td class="foosguy" ng-click="score('55')"></td>
-                    <td class="foosguy" ng-click="score('O5')"></td>
-                </tr>
-                </tbody>
-            </table>
+    </div>
+    <div class="row">
+        <div class="alert" ng-show="result">
+            <button type="button" class="close"
+                    data-dismiss="alert">&times;</button>
+            [[ result ]]
         </div>
     </div>
-    <div style="margin-top: 20px"></div>
+    <div class="row">
+        <div id="tablecontainer">
+            <div id="tabledummy"></div>
+            <div id="tableinnercontainer">
+                <table class="table table-bordered foostable">
+                    <thead>
+                    <tr>
+                        <th>Goalie</th>
+                        <th>Defense</th>
+                        <th>5-Man</th>
+                        <th>Offense</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td class="foosguy" ng-click="guy='G1'"
+                            data-toggle="modal" href="#scoremodal"></td>
+                        <td></td>
+                        <td class="foosguy" ng-click="guy='51'"
+                            data-toggle="modal" href="#scoremodal"></td>
+                        <td class="foosguy" ng-click="guy='O1'"
+                            data-toggle="modal" href="#scoremodal"></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td class="foosguy" ng-click="guy='D2'"
+                            data-toggle="modal" href="#scoremodal"></td>
+                        <td class="foosguy" ng-click="guy='52'"
+                            data-toggle="modal" href="#scoremodal"></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td class="foosguy" ng-click="guy='G3'"
+                            data-toggle="modal" href="#scoremodal"></td>
+                        <td></td>
+                        <td class="foosguy" ng-click="guy='53'"
+                            data-toggle="modal" href="#scoremodal"></td>
+                        <td class="foosguy" ng-click="guy='O3'"
+                            data-toggle="modal" href="#scoremodal"></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td class="foosguy" ng-click="guy='D4'"
+                            data-toggle="modal" href="#scoremodal"></td>
+                        <td class="foosguy" ng-click="guy='54'"
+                            data-toggle="modal" href="#scoremodal"></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td class="foosguy" ng-click="guy='G5'"
+                            data-toggle="modal" href="#scoremodal"></td>
+                        <td></td>
+                        <td class="foosguy" ng-click="guy='55'"
+                            data-toggle="modal" href="#scoremodal"></td>
+                        <td class="foosguy" ng-click="guy='O5'"
+                            data-toggle="modal" href="#scoremodal"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
     <!-- Modal -->
-    <div id="scoremodal" class="modal hide fade" tabindex="-1" role="dialog"
-         aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-header">
-            <h3 id="myModalLabel">score from [[ guy ]]</h3>
+    <div id="scoremodal" class="modal fade" tabindex="-1" role="dialog"
+         aria-labelledby="scorelabel" aria-hidden="false">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 id="scorelabel">score from [[ guy ]]</h3>
+                </div>
+                <div class="modal-body">
+                    <button class="btn btn-small btn-primary"
+                            data-dismiss="modal"
+                            ng-click="confirmscore('typical')">Typical
+                    </button>
+                    <button class="btn btn-small btn-primary"
+                            data-dismiss="modal"
+                            ng-click="cancelscore()">
+                        Bank
+                    </button>
+                    <button class="btn btn-small btn-danger"
+                            data-dismiss="modal"
+                            ng-click="endscore()">Cancel
+                    </button>
+                </div>
+            </div>
         </div>
-        <div class="modal-body">
-            <button class="btn btn-small btn-primary"
-                    ng-click="confirmscore('typical')">Typical
-            </button>
-            <button class="btn btn-small btn-primary" ng-click="cancelscore()">
-                Bank
-            </button>
-            <button class="btn btn-small btn-danger" ng-click="endscore()"
-                    aria-hidden="true">Cancel
-            </button>
-        </div>
-    </div>
-    <div class="alert" ng-show="result">
-        <button type="button" class="close"
-                data-dismiss="alert">&times;</button>
-        [[ result ]]
     </div>
 </div>

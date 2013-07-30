@@ -1,6 +1,6 @@
 foosball = angular.module("foosball")
 
-foosball.controller 'JoinGameCtrl', ($scope, $location, FoosballData) ->
+foosball.controller 'JoinGameCtrl', ($scope, $location, $http, FoosballData) ->
   #First detect if we need to login, and redirect if we do.
   name = localStorage.getItem("playername")
 
@@ -13,12 +13,27 @@ foosball.controller 'JoinGameCtrl', ($scope, $location, FoosballData) ->
     args: "filter=inprog equals true"
   )
   $scope.playername = name
+  $scope.curgame = 'test'
+
+  $scope.startjoin = (game) ->
+    $scope.curgame = game.id
+
+  $scope.join = (game) ->
+    postme = new Object()
+    postme.fb_game_id = game.id
+    postme.fb_player_id = localStorage.getItem("playerid")
+    $http.post("/game/joingame", postme
+    ).success((data, status, headers, config) ->
+      console.log(data)
+    ).error (data, status, headers, config) ->
+      $scope.result = "Error joining game"
+
 
 foosball.controller 'GameCtrl', ($scope, $http, $routeParams, GameData) ->
-  modal = $("#scoremodal").modal({keyboard: false, backdrop: 'static', show: false})
   $scope.data = GameData.query(id: $routeParams.gameid)
 
   $scope.confirmscore = (type) ->
+    #TODO: Actually use the type info, need to expand fb_score model
     postme = new Object()
     postme.pos = $scope.guy
     postme.fb_game_id = $routeParams.gameid
@@ -30,26 +45,18 @@ foosball.controller 'GameCtrl', ($scope, $http, $routeParams, GameData) ->
       $scope.result = "Error posting score"
     $scope.endscore()
 
-  $scope.score = (guy) ->
-    if $scope.guy is undefined
-      $scope.guy = guy
-      modal.modal('show')
-
-  $scope.endscore = () ->
-    $scope.guy = undefined
-    modal.modal('hide')
-
 foosball.controller 'LoginCtrl', ($scope, $location, $http) ->
-  $scope.forcename = ->
+  $scope.forcename = () ->
     localStorage.setItem "playername", $scope.uname
+    localStorage.setItem "playerid", $scope.uid
     $location.path "/"
 
   $scope.login = ->
     # send note to server
     $http(method: "POST", url: "/login", data: "loginName=" + $scope.uname
     ).success((data, status, headers, config) ->
-      already_exists = data.response
-      if already_exists is true
+      $scope.uid = data.player['id']
+      if data.exists is true
         $scope.result = "Username already taken, try another"
         $scope.iswear = true
       else

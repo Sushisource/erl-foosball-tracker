@@ -1,5 +1,5 @@
 -module(foosball_game_controller, [Req]).
--export([info/2, score/2]).
+-export([info/2, score/2, joingame/2]).
 -default_action(list).
 
 info('GET', [Id]) ->
@@ -14,6 +14,7 @@ info('GET', [Id]) ->
   Players = lists:map(PlayerMaker, PlayerGames),
   {json, [{this, Game}, {players, Players}]}.
 
+% Parses JSON into a proplist with atom/str k/v
 json2proplist(RequstBody) ->
   {struct, Body} = mochijson2:decode(RequstBody),
   Normalize = fun({K, <<V/binary>>}) ->
@@ -22,7 +23,7 @@ json2proplist(RequstBody) ->
   lists:map(Normalize, Body).
 
 score('POST', []) ->
-  ScoreData = json2proplist(Req:request_body()), % Parse JSON
+  ScoreData = json2proplist(Req:request_body()),
   % Get which game we're in and find if this is the last point
   GameID = proplists:get_value(fb_game_id, ScoreData),
   PlayerID = proplists:get_value(fb_player_id, ScoreData),
@@ -49,3 +50,11 @@ score('POST', []) ->
       end,
       {json, NewScoreRec}
   end.
+
+joingame('POST', []) ->
+  Data = json2proplist(Req:request_body()),
+  GameID = proplists:get_value(fb_game_id, Data),
+  PlayerID = proplists:get_value(fb_player_id, Data),
+  PlGame = fb_player_game:new(id, GameID, PlayerID, "team"),
+  {json, [PlGame]}.
+

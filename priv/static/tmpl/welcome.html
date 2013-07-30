@@ -13,10 +13,32 @@
 
     <div class="row-fluid">
         <div class="span2" style="margin: 0 auto; float: none">
-            <div ng-controller="JoinGameCtrl">
-                <div class="btn-toolbar" ng-repeat="game in games">
-                    <a href="#/game/[[game.id]]"
-                       class="btn btn-info">[[game.date]]</a>
+            <div class="btn-toolbar" ng-repeat="game in games">
+                <a ng-click="startjoin(game)" href="#teammodal"
+                   data-toggle="modal" class="btn btn-info">[[game.date]]
+                </a>
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div id="teammodal" class="modal fade" role="dialog" tabindex="-1"
+         aria-hidden="false" aria-labelledby="teamlabel">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 id="teamlabel" class="modal-title">
+                        choose team for [[ curgame ]]</h4>
+                </div>
+                <div class="modal-body">
+                    <button class="btn btn-small btn-primary"
+                            ng-click="join('yellow')">Yellow
+                    </button>
+                    <button class="btn btn-small btn-primary"
+                            ng-click="join('black')">Black
+                    </button>
+                    <button class="btn btn-small btn-danger"
+                            data-dismiss="modal">Cancel
+                    </button>
                 </div>
             </div>
         </div>
