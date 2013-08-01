@@ -22,13 +22,16 @@ json2proplist(RequstBody) ->
   end,
   lists:map(Normalize, Body).
 
+find_plgame(GameID, PlayerID) ->
+  boss_db:find_first(fb_player_game,
+    [{fb_game_id, 'equals', GameID}, {fb_player_id, 'equals', PlayerID}]).
+
 score('POST', []) ->
   ScoreData = json2proplist(Req:request_body()),
   % Get which game we're in and find if this is the last point
   GameID = proplists:get_value(fb_game_id, ScoreData),
   PlayerID = proplists:get_value(fb_player_id, ScoreData),
-  PlGame = boss_db:find_first(fb_player_game,
-    [{fb_game_id, 'equals', GameID}, {fb_player_id, 'equals', PlayerID}]),
+  PlGame = find_plgame(GameID, PlayerID),
   InProgress = PlGame:inprog(),
   case InProgress of
   % There's no point if the game is already over
@@ -36,7 +39,6 @@ score('POST', []) ->
       {json, [{error, "Game is already over"}]};
     true ->
       LastScore = PlGame:would_be_final_score(),
-      io:fwrite("~w~n", [LastScore]),
       NewScore = fb_score:new(id,
         PlGame:id(), proplists:get_value(pos, ScoreData)),
       % save the score
@@ -55,6 +57,16 @@ joingame('POST', []) ->
   Data = json2proplist(Req:request_body()),
   GameID = proplists:get_value(fb_game_id, Data),
   PlayerID = proplists:get_value(fb_player_id, Data),
-  PlGame = fb_player_game:new(id, GameID, PlayerID, "team"),
-  {json, [PlGame]}.
+  Team = proplists:get_value(team, Data),
+  PlGame = find_plgame(GameID, PlayerID),
+  RetGame = case PlGame of
+              undefined ->
+                % Create and save new player game
+                NuPlGame = fb_player_game:new(id, GameID, PlayerID, Team),
+                {ok, Saved} = NuPlGame:save(),
+                Saved;
+              _ ->
+                PlGame
+            end,
+  {json, [{game, RetGame}]}.
 

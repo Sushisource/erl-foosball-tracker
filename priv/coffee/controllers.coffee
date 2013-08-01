@@ -1,6 +1,6 @@
 foosball = angular.module("foosball")
 
-foosball.controller 'JoinGameCtrl', ($scope, $location, $http, FoosballData) ->
+foosball.controller 'JoinGameCtrl', ($scope, $location, $http, $timeout, FoosballData) ->
   #First detect if we need to login, and redirect if we do.
   name = localStorage.getItem("playername")
 
@@ -13,18 +13,21 @@ foosball.controller 'JoinGameCtrl', ($scope, $location, $http, FoosballData) ->
     args: "filter=inprog equals true"
   )
   $scope.playername = name
-  $scope.curgame = 'test'
 
   $scope.startjoin = (game) ->
-    $scope.curgame = game.id
+    $scope.curgame = game
 
-  $scope.join = (game) ->
+  $scope.join = (team) ->
     postme = new Object()
-    postme.fb_game_id = game.id
+    postme.fb_game_id = $scope.curgame.id
+    postme.team = team
     postme.fb_player_id = localStorage.getItem("playerid")
     $http.post("/game/joingame", postme
     ).success((data, status, headers, config) ->
-      console.log(data)
+      # We've got this little timeout here so the modal fade doesn't get stuck
+      $timeout ->
+        $location.path("/game/#{$scope.curgame.id}")
+      , 100
     ).error (data, status, headers, config) ->
       $scope.result = "Error joining game"
 
