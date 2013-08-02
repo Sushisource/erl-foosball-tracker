@@ -14,8 +14,12 @@ services.factory "FoosballData", ($resource) ->
 
 #Specifically for returning information about the Game page
 services.factory "GameData", ($resource) ->
-  $resource "game/info/:id", {},
+  $resource "game/:id", {},
     query:
       method: "GET"
       params:
         id: ""
+
+
+services.factory "PlayerGame", ($resource) ->
+  $resource "player_game/:id", {id: '@id'}
