@@ -24,25 +24,25 @@ foosball.controller 'JoinGameCtrl',
       fb_game_id: $scope.curgame.id,
       fb_player_id: localStorage.getItem("playerid")
     , ->
+      # This timeout is here so that the modal has time to fade out
       $timeout ->
         $location.path("/game/#{$scope.curgame.id}")
       , 100
 
-foosball.controller 'GameCtrl', ($scope, $http, $routeParams, GameData) ->
+foosball.controller 'GameCtrl',
+($scope, $routeParams, GameData, Score) ->
   $scope.data = GameData.query(id: $routeParams.gameid)
 
   $scope.confirmscore = (type) ->
     #TODO: Actually use the type info, need to expand fb_score model
-    postme = new Object()
-    postme.pos = $scope.guy
-    postme.fb_game_id = $routeParams.gameid
-    postme.fb_player_id = localStorage.getItem("playerid")
-    $http(method: "POST", url: "/game/score", data: postme
-    ).success((data, status, headers, config) ->
-      $scope.result = data
-    ).error (data, status, headers, config) ->
-      $scope.result = "Error posting score"
-    $scope.endscore()
+    nugame = Score.save
+      pos: $scope.guy
+      fb_game_id: $routeParams.gameid
+      fb_player_id: localStorage.getItem("playerid")
+    , ->
+        $scope.result = nugame
+    , ->
+        $scope.result = "error saving score"
 
 foosball.controller 'LoginCtrl', ($scope, $location, $http) ->
   $scope.forcename = () ->

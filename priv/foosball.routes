@@ -20,6 +20,8 @@
 {"/data/(\\w+)/(.+)", [{controller, "data"}, {action, "read"}, {model, '$1'}, {id, '$2'}]}.
 % Game routes
 {"/game/(.+)", [{controller, "game"}, {action, "game"}, {id, '$1'}]}.
+% Score routes
+{"/score/(.+)", [{controller, "score"}, {action, "score"}, {id, '$1'}]}.
 
 % 404 File Not Found handler
 % {404, [{controller, "world"}, {action, "lost"}]}.

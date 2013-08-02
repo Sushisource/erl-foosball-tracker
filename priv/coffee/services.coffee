@@ -23,3 +23,6 @@ services.factory "GameData", ($resource) ->
 
 services.factory "PlayerGame", ($resource) ->
   $resource "player_game/:id", {id: '@id'}
+
+services.factory "Score", ($resource) ->
+  $resource "score/:id", {id: '@id'}
