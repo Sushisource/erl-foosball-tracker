@@ -1,22 +1,25 @@
 foosball = angular.module("foosball")
 
 foosball.controller 'JoinGameCtrl',
-($scope, $location, $timeout, FoosballData, PlayerGame) ->
+($scope, $location, $timeout, FoosballData, Game, PlayerGame) ->
   #First detect if we need to login, and redirect if we do.
   name = localStorage.getItem("playername")
 
   if name is null
     name = "no name"
     $location.path "/login"
-
-  $scope.games = FoosballData.query(
-    model: "fb_game"
-    args: "filter=inprog equals true"
-  )
   $scope.playername = name
+
+  update_games = () ->
+    $scope.games = FoosballData.query(
+      model: "fb_game"
+      args: "filter=inprog equals true"
+    )
+  update_games()
 
   $scope.startjoin = (game) ->
     $scope.curgame = game
+    $("#teammodal").modal("show")
 
   $scope.join = (team) ->
     PlayerGame.save
@@ -28,6 +31,11 @@ foosball.controller 'JoinGameCtrl',
       $timeout ->
         $location.path("/game/#{$scope.curgame.id}")
       , 100
+
+  $scope.newgame = () ->
+    nugame = Game.save()
+    update_games()
+    $scope.startjoin(nugame)
 
 foosball.controller 'GameCtrl',
 ($scope, $routeParams, GameData, Score) ->

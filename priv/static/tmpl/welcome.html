@@ -5,7 +5,8 @@
 
     <div class="row-fluid" style="margin-bottom: 10px">
         <div class="span2" style="margin: 0 auto; float: none">
-            <a href="#/newgame" class="btn btn-success btn-large">New Game</a>
+            <a ng-click="newgame()" class="btn btn-success btn-large">New
+                Game</a>
         </div>
     </div>
     <br/>
@@ -14,8 +15,7 @@
     <div class="row-fluid">
         <div class="span2" style="margin: 0 auto; float: none">
             <div class="btn-toolbar" ng-repeat="game in games">
-                <a ng-click="startjoin(game)" href="#teammodal"
-                   data-toggle="modal" class="btn btn-info">[[game.date]]
+                <a ng-click="startjoin(game)" class="btn btn-info">[[game.date]]
                 </a>
             </div>
         </div>

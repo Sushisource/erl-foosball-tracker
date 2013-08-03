@@ -14,6 +14,3 @@ list('GET', [Model]) ->
   end,
   Results = boss_db:find(list_to_atom(Model), Args),
   {json, Results}.
-
-list('GET') ->
-  {json, []}.

@@ -1,5 +1,5 @@
 -module(foosball_game_controller, [Req]).
--export([game/2]).
+-compile(export_all).
 -default_action(game).
 
 game('GET', [Id]) ->
@@ -12,5 +12,10 @@ game('GET', [Id]) ->
   end,
   PlayerGames = Game:fb_player_games(),
   Players = lists:map(PlayerMaker, PlayerGames),
-  {json, [{this, Game}, {players, Players}]}.
+  {json, [{this, Game}, {players, Players}]};
 
+% Creates a new Game with current timestamp
+game('POST', []) ->
+  Game = fb_game:new(id, calendar:now_to_datetime(now()), true),
+  {ok, NuGame} = Game:save(),
+  {json, NuGame}.
