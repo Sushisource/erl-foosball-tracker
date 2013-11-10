@@ -8,12 +8,15 @@ angular.module('foosball', ['foosballServices']).
        $routeProvider.
         when('/',
             {templateUrl: 'static/tmpl/welcome.html',
-             controller: 'JoinGameCtrl'}).
+             controller: 'WelcomeCtrl'}).
         when('/login',
             {templateUrl: 'static/tmpl/login.html',
              controller: 'LoginCtrl'}).
         when('/game/:gameid',
             {templateUrl: 'static/tmpl/ingame.html',
              controller: 'GameCtrl'}).
+        when('/recgame/:gameid',
+            {templateUrl: 'static/tmpl/recordgame.html',
+             controller: 'RecGameCtrl'}).
         otherwise({redirectTo: '/'});
 }]);

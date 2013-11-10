@@ -8,9 +8,9 @@ read('GET', [Model, Id]) ->
 
 list('GET', [Model]) ->
   Args = case Req:query_param("filter") of
+    undefined -> [];
     String -> [Col, Op, Val] = string:tokens(String, " "),
-              [{list_to_atom(Col), list_to_atom(Op), Val}];
-    undefined -> []
+              [{list_to_atom(Col), list_to_atom(Op), Val}]
   end,
   Results = boss_db:find(list_to_atom(Model), Args),
   {json, Results}.

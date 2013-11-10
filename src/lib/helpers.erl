@@ -1,11 +1,16 @@
 -module(helpers).
 -compile(export_all).
 
+normalizr({K, <<V/binary>>}) ->
+    {binary_to_atom(K, utf8), binary_to_list(V)};
+normalizr({K, Boolean}) ->
+  {binary_to_atom(K, utf8), Boolean}.
+
 % Parses JSON into a proplist with atom/str k/v
 json2proplist(RequstBody) ->
   {struct, Body} = mochijson2:decode(RequstBody),
-  Normalize = fun({K, <<V/binary>>}) ->
-    {binary_to_atom(K, utf8), binary_to_list(V)}
+  Normalize = fun(Tuple) ->
+    normalizr(Tuple)
   end,
   lists:map(Normalize, Body).
 

@@ -1,10 +1,9 @@
 foosball = angular.module("foosball")
 
-foosball.controller 'JoinGameCtrl',
+foosball.controller 'WelcomeCtrl',
 ($scope, $location, $timeout, FoosballData, Game, PlayerGame) ->
   #First detect if we need to login, and redirect if we do.
   name = localStorage.getItem("playername")
-
   if name is null
     name = "no name"
     $location.path "/login"
@@ -32,10 +31,19 @@ foosball.controller 'JoinGameCtrl',
         $location.path("/game/#{$scope.curgame.id}")
       , 100
 
+  # For creating a new interactive game
   $scope.newgame = () ->
-    nugame = Game.save()
+    nugame = Game.save
+      inprog: true
     update_games()
     $scope.startjoin(nugame)
+  # For recording an already plated game
+  $scope.recordgame = () ->
+    recme = new Game
+      inprog: false
+    Game.save recme, (n_game, headers)->
+      $location.path("/recgame/#{n_game.id}")
+
 
 foosball.controller 'GameCtrl',
 ($scope, $routeParams, GameData, Score) ->
@@ -51,6 +59,11 @@ foosball.controller 'GameCtrl',
         $scope.result = nugame
     , ->
         $scope.result = "error saving score"
+
+foosball.controller 'RecGameCtrl', ($scope, FoosballData) ->
+  $scope.players = FoosballData.query(
+    model: "fb_player"
+  )
 
 foosball.controller 'LoginCtrl', ($scope, $location, $http) ->
   $scope.forcename = () ->

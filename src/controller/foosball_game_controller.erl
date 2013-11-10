@@ -16,6 +16,8 @@ game('GET', [Id]) ->
 
 % Creates a new Game with current timestamp
 game('POST', []) ->
-  Game = fb_game:new(id, calendar:now_to_datetime(now()), true),
+  Data = helpers:json2proplist(Req:request_body()),
+  InProgress = proplists:get_value(inprog, Data),
+  Game = fb_game:new(id, calendar:now_to_datetime(now()), InProgress),
   {ok, NuGame} = Game:save(),
   {json, NuGame}.
