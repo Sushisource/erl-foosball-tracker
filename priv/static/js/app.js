@@ -15,7 +15,7 @@ angular.module('foosball', ['foosballServices']).
         when('/game/:gameid',
             {templateUrl: 'static/tmpl/ingame.html',
              controller: 'GameCtrl'}).
-        when('/recgame/:gameid',
+        when('/recgame',
             {templateUrl: 'static/tmpl/recordgame.html',
              controller: 'RecGameCtrl'}).
         otherwise({redirectTo: '/'});

@@ -45,10 +45,7 @@ foosball.controller 'WelcomeCtrl',
     $scope.startjoin(nugame)
   # For recording an already plated game
   $scope.recordgame = () ->
-    recme = new Game
-      inprog: false
-    Game.save recme, (n_game, headers)->
-      $location.path("/recgame/#{n_game.id}")
+    $location.path("/recgame")
 
 
 foosball.controller 'GameCtrl',
