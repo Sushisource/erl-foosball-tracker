@@ -1,4 +1,56 @@
 <div class="container-fluid">
-    Enter a game's players and score
-    <div ng-repeat="player in players">[[player.name]]</div>
+    <h2>Enter a game's players and score</h2>
+
+    <div class="row">
+        <div class="col-xs-4">
+            Yellow Team
+            <select multiple class="form-control">
+                <option ng-repeat="player in yellowteam">[[player.name]]
+                </option>
+            </select>
+            Score
+            <select class="form-control">
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+                <option>6</option>
+                <option>7</option>
+                <option>8</option>
+            </select>
+        </div>
+        <div class="col-xs-4">
+            Available Players
+            <select multiple class="form-control">
+                <option ng-repeat="player in players">[[player.name]]</option>
+            </select>
+            <br/>
+            <div class="text-center">
+                <button type="button" class="btn btn-default btn-sm">
+                    <span class="glyphicon glyphicon-arrow-left"></span>
+                </button>
+                <button type="button" class="btn btn-default btn-sm">
+                    <span class="glyphicon glyphicon-arrow-right"></span>
+                </button>
+            </div>
+        </div>
+        <div class="col-xs-4">
+            Black Team
+            <select multiple class="form-control">
+                <option ng-repeat="player in blackteam">[[player.name]]</option>
+            </select>
+            Score
+            <select class="form-control">
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+                <option>6</option>
+                <option>7</option>
+                <option>8</option>
+            </select>
+        </div>
+    </div>
 </div>
