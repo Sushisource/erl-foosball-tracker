@@ -4,10 +4,12 @@ foosball.controller 'WelcomeCtrl',
 ($scope, $location, $timeout, FoosballData, Game, PlayerGame) ->
   #First detect if we need to login, and redirect if we do.
   name = localStorage.getItem("playername")
-  if name is null
+  id = localStorage.getItem("playerid")
+  if name is null or id is null
     name = "no name"
     $location.path "/login"
   $scope.playername = name
+  $scope.playerid = id
 
   update_games = () ->
     $scope.games = FoosballData.query(
@@ -18,13 +20,17 @@ foosball.controller 'WelcomeCtrl',
 
   $scope.startjoin = (game) ->
     $scope.curgame = game
-    $("#teammodal").modal("show")
+    PlayerGame.query
+      fb_game_id: game.id
+      fb_player_id: $scope.playerid
+    , (pgames) ->
+        $scope.join(pgames[0].team)
 
   $scope.join = (team) ->
     PlayerGame.save
       team: team,
       fb_game_id: $scope.curgame.id,
-      fb_player_id: localStorage.getItem("playerid")
+      fb_player_id: $scope.playerid
     , ->
       # This timeout is here so that the modal has time to fade out
       $timeout ->
@@ -54,7 +60,7 @@ foosball.controller 'GameCtrl',
     nugame = Score.save
       pos: $scope.guy
       fb_game_id: $routeParams.gameid
-      fb_player_id: localStorage.getItem("playerid")
+      fb_player_id: $scope.playerid
     , ->
         $scope.result = nugame
     , ->

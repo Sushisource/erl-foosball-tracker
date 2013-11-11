@@ -5,7 +5,8 @@
 
     <div class="row-fluid" style="margin-bottom: 10px">
         <div class="span2" style="margin: 0 auto; float: none">
-            <a ng-click="newgame()" class="btn btn-success btn-large">New
+            <a ng-click="newgame()" class="btn btn-success btn-large"
+               style="margin-bottom:10px;">New
                 Game (Per-Score Entry)</a>
             <a ng-click="recordgame()" class="btn btn-success btn-large">Enter
                 Played Game Results</a>
@@ -17,7 +18,8 @@
     <div class="row-fluid">
         <div class="span2" style="margin: 0 auto; float: none">
             <div class="btn-toolbar" ng-repeat="game in games">
-                <a ng-click="startjoin(game)" class="btn btn-info">[[game.date]]
+                <a ng-click="startjoin(game)" class="btn btn-info"
+                   style="margin-bottom: 5px">[[game.date]]
                 </a>
             </div>
         </div>

@@ -17,4 +17,11 @@ player_game('POST', []) ->
               _ ->
                 PlGame
             end,
-  {json, [{game, RetGame}]}.
+  {json, [{game, RetGame}]};
+
+player_game('GET', []) ->
+  Params = Req:query_params(),
+  GameID = proplists:get_value("fb_game_id", Params),
+  PlayerID = proplists:get_value("fb_player_id", Params),
+  PlGame = helpers:find_plgame(GameID, PlayerID),
+  {json, [PlGame]}.

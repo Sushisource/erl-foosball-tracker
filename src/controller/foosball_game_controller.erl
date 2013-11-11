@@ -6,9 +6,9 @@ game('GET', [Id]) ->
   Game = boss_db:find(Id),
   % For extracting the player from the player game, and putting in team info
   PlayerMaker = fun(PGame) ->
-  Player = PGame:fb_player(),
-  Attribs = Player:attributes(),
-  [{team, PGame:team()} | Attribs]
+    Player = PGame:fb_player(),
+    Attribs = Player:attributes(),
+    [{team, PGame:team()} | Attribs]
   end,
   PlayerGames = Game:fb_player_games(),
   Players = lists:map(PlayerMaker, PlayerGames),
