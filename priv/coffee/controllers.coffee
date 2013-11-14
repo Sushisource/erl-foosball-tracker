@@ -64,9 +64,23 @@ foosball.controller 'GameCtrl',
         $scope.result = "error saving score"
 
 foosball.controller 'RecGameCtrl', ($scope, FoosballData) ->
+  $scope.yellowPlayers = []
+  $scope.blackPlayers = []
+  $scope.scoreAmts = [1..8]
   $scope.players = FoosballData.query(
     model: "fb_player"
   )
+  pushr = (dest) ->
+    for player in $scope.availablePlayers
+      if player not in $scope.yellowPlayers && player not in $scope.blackPlayers
+        dest.push(player)
+
+  $scope.move = (direction) ->
+    if direction == "left"
+      pushr($scope.yellowPlayers)
+    else
+      pushr($scope.blackPlayers)
+
 
 foosball.controller 'LoginCtrl', ($scope, $location, $http) ->
   $scope.forcename = () ->

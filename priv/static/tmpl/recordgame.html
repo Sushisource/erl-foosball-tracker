@@ -4,52 +4,41 @@
     <div class="row">
         <div class="col-xs-4">
             Yellow Team
-            <select multiple class="form-control">
-                <option ng-repeat="player in yellowteam">[[player.name]]
-                </option>
+            <select multiple class="form-control" ng-model="yellowPlayers_s"
+                    ng-options="player.name for player in yellowPlayers">
             </select>
             Score
-            <select class="form-control">
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-                <option>6</option>
-                <option>7</option>
-                <option>8</option>
+            <select class="form-control" ng-model="yellowScore" required
+                    ng-options="v for v in scoreAmts">
             </select>
         </div>
         <div class="col-xs-4">
             Available Players
-            <select multiple class="form-control">
-                <option ng-repeat="player in players">[[player.name]]</option>
+            <select multiple class="form-control" style="height: 200px"
+                    ng-model="availablePlayers"
+                    ng-options="player.name for player in players">
             </select>
             <br/>
+
             <div class="text-center">
-                <button type="button" class="btn btn-default btn-sm">
+                <button type="button" class="btn btn-default btn-sm"
+                        ng-click="move('left')">
                     <span class="glyphicon glyphicon-arrow-left"></span>
                 </button>
-                <button type="button" class="btn btn-default btn-sm">
+                <button type="button" class="btn btn-default btn-sm"
+                        ng-click="move('right')">
                     <span class="glyphicon glyphicon-arrow-right"></span>
                 </button>
             </div>
         </div>
         <div class="col-xs-4">
             Black Team
-            <select multiple class="form-control">
-                <option ng-repeat="player in blackteam">[[player.name]]</option>
+            <select multiple class="form-control" ng-model="blackPlayers_s"
+                    ng-options="player.name for player in blackPlayers">
             </select>
             Score
-            <select class="form-control">
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-                <option>6</option>
-                <option>7</option>
-                <option>8</option>
+            <select class="form-control" ng-model="blackScore" required
+                    ng-options="v for v in scoreAmts">
             </select>
         </div>
     </div>
