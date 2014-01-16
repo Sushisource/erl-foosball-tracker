@@ -18,6 +18,6 @@ game('GET', [Id]) ->
 game('POST', []) ->
   Data = helpers:json2proplist(Req:request_body()),
   InProgress = proplists:get_value(inprog, Data),
-  Game = fb_game:new(id, calendar:now_to_datetime(now()), InProgress),
+  Game = fb_game:new(id, calendar:now_to_datetime(now()), InProgress, false),
   {ok, NuGame} = Game:save(),
   {json, NuGame}.

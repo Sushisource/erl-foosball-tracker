@@ -81,6 +81,9 @@ foosball.controller 'RecGameCtrl', ($scope, FoosballData) ->
     else
       pushr($scope.blackPlayers)
 
+  $scope.submit = () ->
+    console.log("wee")
+
 
 foosball.controller 'LoginCtrl', ($scope, $location, $http) ->
   $scope.forcename = () ->

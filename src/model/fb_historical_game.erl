@@ -1,0 +1,3 @@
+-module(fb_historical_game, [Id, FbGameId, Winscore, Loserscore, Winteam::string()]).
+-belongs_to(fb_game).
+-compile(export_all).
