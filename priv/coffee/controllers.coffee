@@ -73,7 +73,15 @@ foosball.controller 'RecGameCtrl', ($scope, FoosballData) ->
   pushr = (dest) ->
     for player in $scope.availablePlayers
       if player not in $scope.yellowPlayers && player not in $scope.blackPlayers
-        dest.push(player)
+        if dest.length < 2
+          dest.push(player)
+          ixp = $scope.players.indexOf(player)
+          $scope.players.splice(ixp, 1)
+
+  $scope.restore = (from, player) ->
+    $scope.players.push(player)
+    ixp = from.indexOf(player)
+    from.splice(ixp, 1)
 
   $scope.move = (direction) ->
     if direction == "left"

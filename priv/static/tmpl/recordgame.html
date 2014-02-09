@@ -4,9 +4,12 @@
     <div class="row">
         <div class="col-xs-4">
             Yellow Team
-            <select multiple class="form-control" ng-model="yellowPlayers_s"
-                    ng-options="player.name for player in yellowPlayers">
-            </select>
+            <ul>
+                <li ng-repeat="player in yellowPlayers">
+                    [[player.name]]
+                    [<a href ng-click="restore(yellowPlayers, player)">X</a>]
+                </li>
+            </ul>
             Score
             <select class="form-control" ng-model="yellowScore" required
                     ng-options="v for v in scoreAmts">
@@ -32,15 +35,18 @@
                 <br/>
                 <button type="button" class="btn btn-primary"
                         style="margin-top: 5px;" ng-click="submit()">
-                        Submit
+                    Submit
                 </button>
             </div>
         </div>
         <div class="col-xs-4">
             Black Team
-            <select multiple class="form-control" ng-model="blackPlayers_s"
-                    ng-options="player.name for player in blackPlayers">
-            </select>
+            <ul>
+                <li ng-repeat="player in blackPlayers">
+                    [[player.name]]
+                    [<a href ng-click="restore(blackPlayers, player)">X</a>]
+                </li>
+            </ul>
             Score
             <select class="form-control" ng-model="blackScore" required
                     ng-options="v for v in scoreAmts">
