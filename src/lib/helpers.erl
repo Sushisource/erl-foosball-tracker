@@ -3,8 +3,10 @@
 
 normalizr({K, <<V/binary>>}) ->
     {binary_to_atom(K, utf8), binary_to_list(V)};
-normalizr({K, Boolean}) ->
-  {binary_to_atom(K, utf8), Boolean}.
+normalizr({K, Other}) when is_list(Other) ->
+  {binary_to_atom(K, utf8), [binary_to_list(X) || X <- Other]};
+normalizr({K, Other}) ->
+  {binary_to_atom(K, utf8), Other}.
 
 % Parses JSON into a proplist with atom/str k/v
 json2proplist(RequstBody) ->

@@ -34,9 +34,12 @@
                 </button>
                 <br/>
                 <button type="button" class="btn btn-primary"
-                        style="margin-top: 5px;" ng-click="submit()">
+                        style="margin: 5px 0;" ng-click="submit()">
                     Submit
                 </button>
+                <div class="alert alert-warning" ng-show="alert_txt">
+                    <strong>Warning!</strong> [[alert_txt]]
+                </div>
             </div>
         </div>
         <div class="col-xs-4">

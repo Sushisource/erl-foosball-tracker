@@ -4,24 +4,28 @@
 
 historical_game('POST', []) ->
   Data = helpers:json2proplist(Req:request_body()),
-  WinPlayers = proplists:get_value(win_players, Data),
-  LosePlayers = proplists:get_value(lose_players, Data),
-  WinScore = proplists:get_value(win_score, Data),
-  LoseScore = proplists:get_value(lose_score, Data),
-  % Winning team name
-  Winner = proplists:get_value(winner, Data),
-  Loser = proplists:get_value(loser, Data),
+  YellowPlayers = proplists:get_value(yellow_players, Data),
+  BlackPlayers = proplists:get_value(black_players, Data),
+  YellowScore = proplists:get_value(yellow_score, Data),
+  BlackScore = proplists:get_value(black_score, Data),
+  {WinScore, LoseScore, Winner, Loser} = case YellowScore > BlackScore of
+    true ->
+      {YellowScore, BlackScore, "yellow", "black"};
+    false ->
+      {BlackScore, YellowScore, "black", "yellow"}
+  end,
   % We will automatically greate a new game first, and then associate
   % a historical game with it, and the necessary playergames
   NuGame = fb_game:new(id, calendar:now_to_datetime(now()), false, true),
   {ok, RetGame} = NuGame:save(),
   HistGame = fb_historical_game:new(id, RetGame:id(), WinScore, LoseScore, Winner),
+  {ok, _} = HistGame:save(),
   PGameMaker = fun(Plid, TeamName) ->
-    fb_player_game:new(id, RetGame:id(), Plid, TeamName)
+    NuPGame = fb_player_game:new(id, RetGame:id(), Plid, TeamName),
+    NuPGame:save()
   end,
-  lists:map(fun(I) -> PGameMaker(I, Winner) end, WinPlayers),
-  lists:map(fun(I) -> PGameMaker(I, Loser) end, LosePlayers),
-  %fb_player_game:new(id, RetGame:id(), 
+  lists:foreach(fun(I) -> PGameMaker(I, Winner) end, YellowPlayers),
+  lists:foreach(fun(I) -> PGameMaker(I, Loser) end, BlackPlayers),
   {json, [{game, RetGame}]};
 
 historical_game('GET', []) ->

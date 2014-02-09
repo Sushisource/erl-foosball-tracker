@@ -63,7 +63,7 @@ foosball.controller 'GameCtrl',
     , ->
         $scope.result = "error saving score"
 
-foosball.controller 'RecGameCtrl', ($scope, FoosballData) ->
+foosball.controller 'RecGameCtrl', ($scope, FoosballData, HistoricalGame) ->
   $scope.yellowPlayers = []
   $scope.blackPlayers = []
   $scope.scoreAmts = [1..8]
@@ -90,7 +90,14 @@ foosball.controller 'RecGameCtrl', ($scope, FoosballData) ->
       pushr($scope.blackPlayers)
 
   $scope.submit = () ->
-    console.log("wee")
+    if not $scope.yellowScore? || not $scope.blackScore?
+      $scope.alert_txt = "Both teams must have a defined score"
+    else
+      nugame = HistoricalGame.save
+        yellow_players: (p.id for p in $scope.yellowPlayers)
+        black_players: (p.id for p in $scope.blackPlayers)
+        yellow_score: $scope.yellowScore
+        black_score: $scope.blackScore
 
 
 foosball.controller 'LoginCtrl', ($scope, $location, $http) ->
