@@ -24,7 +24,10 @@ foosball.controller 'WelcomeCtrl',
       fb_game_id: game.id
       fb_player_id: $scope.playerid
     , (pgames) ->
-        $scope.join(pgames[0].team)
+        if not pgames[0].team?
+          $("#teammodal").modal("show")
+        else
+          $scope.join(pgames[0].team)
 
   $scope.join = (team) ->
     PlayerGame.save
@@ -39,10 +42,11 @@ foosball.controller 'WelcomeCtrl',
 
   # For creating a new interactive game
   $scope.newgame = () ->
-    nugame = Game.save
+    Game.save
       inprog: true
-    update_games()
-    $scope.startjoin(nugame)
+    , (nugame) ->
+      update_games()
+      $scope.startjoin(nugame)
   # For recording an already plated game
   $scope.recordgame = () ->
     $location.path("/recgame")

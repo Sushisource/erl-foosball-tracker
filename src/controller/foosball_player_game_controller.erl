@@ -23,5 +23,9 @@ player_game('GET', []) ->
   Params = Req:query_params(),
   GameID = proplists:get_value("fb_game_id", Params),
   PlayerID = proplists:get_value("fb_player_id", Params),
-  PlGame = helpers:find_plgame(GameID, PlayerID),
-  {json, [PlGame]}.
+  case helpers:find_plgame(GameID, PlayerID) of
+    undefined ->
+      {json, [{not_found, true}]};
+    Record ->
+      {json, [Record]}
+  end.
