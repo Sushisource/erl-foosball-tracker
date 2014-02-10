@@ -10,24 +10,28 @@ foosball.controller 'WelcomeCtrl',
     $location.path "/login"
   $scope.playername = name
   $scope.playerid = id
+  $scope.recent_games = FoosballData.query(
+    model: "fb_game"
+    limit: 5
+  )
 
   update_games = () ->
     $scope.games = FoosballData.query(
       model: "fb_game"
-      args: "filter=inprog equals true"
+      filter: "inprog equals true"
     )
   update_games()
 
   $scope.startjoin = (game) ->
     $scope.curgame = game
-    PlayerGame.query
+    PlayerGame.get
       fb_game_id: game.id
       fb_player_id: $scope.playerid
     , (pgames) ->
-        if not pgames[0].team?
-          $("#teammodal").modal("show")
-        else
-          $scope.join(pgames[0].team)
+      if not pgames.team?
+        $("#teammodal").modal("show")
+      else
+        $scope.join(pgames.team)
 
   $scope.join = (team) ->
     PlayerGame.save
@@ -53,8 +57,8 @@ foosball.controller 'WelcomeCtrl',
 
 
 foosball.controller 'GameCtrl',
-($scope, $routeParams, GameData, Score) ->
-  $scope.data = GameData.query(id: $routeParams.gameid)
+($scope, $routeParams, Game, Score) ->
+  $scope.data = Game.get(id: $routeParams.gameid)
 
   $scope.confirmscore = (type) ->
     #TODO: Actually use the type info, need to expand fb_score model
@@ -63,11 +67,11 @@ foosball.controller 'GameCtrl',
       fb_game_id: $routeParams.gameid
       fb_player_id: $scope.playerid
     , ->
-        $scope.result = nugame
+      $scope.result = nugame
     , ->
-        $scope.result = "error saving score"
+      $scope.result = "error saving score"
 
-foosball.controller 'RecGameCtrl', ($scope, FoosballData, HistoricalGame) ->
+foosball.controller 'RecGameCtrl', ($scope, $location, FoosballData, HistoricalGame) ->
   $scope.yellowPlayers = []
   $scope.blackPlayers = []
   $scope.scoreAmts = [1..8]
@@ -97,11 +101,13 @@ foosball.controller 'RecGameCtrl', ($scope, FoosballData, HistoricalGame) ->
     if not $scope.yellowScore? || not $scope.blackScore?
       $scope.alert_txt = "Both teams must have a defined score"
     else
-      nugame = HistoricalGame.save
+      HistoricalGame.save
         yellow_players: (p.id for p in $scope.yellowPlayers)
         black_players: (p.id for p in $scope.blackPlayers)
         yellow_score: $scope.yellowScore
         black_score: $scope.blackScore
+      , ->
+        $location.path("/")
 
 
 foosball.controller 'LoginCtrl', ($scope, $location, $http) ->

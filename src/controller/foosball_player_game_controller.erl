@@ -27,5 +27,5 @@ player_game('GET', []) ->
     undefined ->
       {json, [{not_found, true}]};
     Record ->
-      {json, [Record]}
+      {json, Record}
   end.

@@ -25,6 +25,18 @@
             </div>
         </div>
     </div>
+
+    <h4>Recent Finished Games</h4>
+
+    <div class="row-fluid">
+        <div class="span2" style="margin: 0 auto; float: none">
+            <div class="btn-toolbar" ng-repeat="game in recent_games">
+                <a ng-click="startjoin(game)" class="btn btn-info"
+                   style="margin-bottom: 5px">[[game.date]]
+                </a>
+            </div>
+        </div>
+    </div>
     <!-- Modal -->
     <div id="teammodal" class="modal fade" role="dialog" tabindex="-1"
          aria-hidden="false" aria-labelledby="teamlabel">
