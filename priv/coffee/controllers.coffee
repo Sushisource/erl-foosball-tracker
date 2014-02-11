@@ -10,16 +10,15 @@ foosball.controller 'WelcomeCtrl',
     $location.path "/login"
   $scope.playername = name
   $scope.playerid = id
-  $scope.recent_games = FoosballData.query(
-    model: "fb_game"
-    limit: 5
-  )
+
+  Game.get limit: 5
+  , (games) ->
+    $scope.recent_games = games.games
 
   update_games = () ->
-    $scope.games = FoosballData.query(
-      model: "fb_game"
-      filter: "inprog equals true"
-    )
+    Game.get inprog: true
+    , (games) ->
+      $scope.games = games.games
   update_games()
 
   $scope.startjoin = (game) ->
