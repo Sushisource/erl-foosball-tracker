@@ -62,3 +62,8 @@
     background: -ms-radial-gradient(center, ellipse cover, #aebcbf 0%, #6e7774 48%, #0a0e0a 49%, #ffffff 61%);
     background: radial-gradient(ellipse at center, #aebcbf 0%, #6e7774 48%, #0a0e0a 49%, #ffffff 61%);
 }
+
+.gscore {
+    font-size: 18px;
+    padding: 3px;
+}

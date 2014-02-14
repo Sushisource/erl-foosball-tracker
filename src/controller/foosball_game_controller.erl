@@ -50,5 +50,5 @@ expand_game(Game) ->
   end,
   Players = lists:map(PlayerMaker, PlayerGames),
   {struct, NuGame} = boss_model_manager:to_json(Game),
-  NuGame ++ [{players, Players}].
+  NuGame ++ [{players, Players}, {scores, Game:score_totals()}].
 
