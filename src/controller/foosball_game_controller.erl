@@ -4,8 +4,10 @@
 
 game('GET', []) ->
   Conditions = case Req:query_param("inprog") of
-                 "true" -> [{inprog, 'equals', true}];
-                 _ -> []
+                 Val when Val == "true" orelse Val == "false" ->
+                   [{inprog, 'equals', list_to_atom(Val)}];
+                 _ ->
+                   []
                end,
   Options = case Req:query_param("limit") of
               undefined -> [];

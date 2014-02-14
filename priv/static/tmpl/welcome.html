@@ -21,6 +21,11 @@
             <div class="btn-toolbar" ng-repeat="game in games">
                 <a ng-click="startjoin(game)" class="btn btn-info"
                    style="margin-bottom: 5px">[[game.date]]
+                    <br/>
+                    <span ng-repeat="player in game.players"
+                          class="label label-info [[player.team]]-team">
+                        [[player.name]]
+                    </span>
                 </a>
             </div>
         </div>
@@ -33,6 +38,11 @@
             <div class="btn-toolbar" ng-repeat="game in recent_games">
                 <a class="btn btn-info"
                    style="margin-bottom: 5px">[[game.date]]
+                    <br/>
+                    <span ng-repeat="player in game.players"
+                          class="label label-info [[player.team]]-team">
+                        [[player.name]]
+                    </span>
                 </a>
             </div>
         </div>

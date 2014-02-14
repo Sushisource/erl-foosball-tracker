@@ -11,7 +11,9 @@ foosball.controller 'WelcomeCtrl',
   $scope.playername = name
   $scope.playerid = id
 
-  Game.get limit: 5
+  Game.get
+    limit: 5
+    inprog: false
   , (games) ->
     $scope.recent_games = games.games
 
