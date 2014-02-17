@@ -18,3 +18,12 @@ services.factory "Score", ($resource) ->
 
 services.factory "HistoricalGame", ($resource) ->
   $resource "historical_game/:id", {id: '@id'}
+
+services.factory "LoginSvc", ($location) ->
+  name = localStorage.getItem("playername")
+  id = localStorage.getItem("playerid")
+  if name is null or id is null
+    name = "no name"
+    $location.path "/login"
+  return {name: name, id: id}
+

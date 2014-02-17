@@ -1,15 +1,9 @@
 foosball = angular.module("foosball")
 
 foosball.controller 'WelcomeCtrl',
-($scope, $location, $timeout, FoosballData, Game, PlayerGame) ->
-  #First detect if we need to login, and redirect if we do.
-  name = localStorage.getItem("playername")
-  id = localStorage.getItem("playerid")
-  if name is null or id is null
-    name = "no name"
-    $location.path "/login"
-  $scope.playername = name
-  $scope.playerid = id
+($scope, $location, $timeout, FoosballData, Game, PlayerGame, LoginSvc) ->
+  $scope.playername = LoginSvc.name
+  $scope.playerid = LoginSvc.id
 
   Game.get
     limit: 5
@@ -58,8 +52,9 @@ foosball.controller 'WelcomeCtrl',
 
 
 foosball.controller 'GameCtrl',
-($scope, $routeParams, Game, Score) ->
+($scope, $routeParams, Game, Score, LoginSvc) ->
   $scope.data = Game.get(id: $routeParams.gameid)
+  $scope.playerid = LoginSvc.id
 
   $scope.confirmscore = (type) ->
     #TODO: Actually use the type info, need to expand fb_score model
@@ -68,9 +63,9 @@ foosball.controller 'GameCtrl',
       fb_game_id: $routeParams.gameid
       fb_player_id: $scope.playerid
     , ->
-      $scope.result = nugame
+      $scope.result = "Score from #{nugame.pos} recorded"
     , ->
-      $scope.result = "error saving score"
+      $scope.result = "Error saving score"
 
 foosball.controller 'RecGameCtrl', ($scope, $location, FoosballData, HistoricalGame) ->
   $scope.yellowPlayers = []

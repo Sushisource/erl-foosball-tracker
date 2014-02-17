@@ -20,7 +20,14 @@
         <div class="span2" style="margin: 0 auto; float: none">
             <div class="btn-toolbar" ng-repeat="game in games">
                 <a ng-click="startjoin(game)" class="btn btn-info"
-                   style="margin-bottom: 5px">[[game.date]]
+                   style="margin-bottom: 5px">
+                    <span class="badge badge-info black-team gscore">
+                        [[game.scores.black]]
+                    </span>
+                    [[game.date]]
+                    <span class="badge badge-info yellow-team gscore">
+                        [[game.scores.yellow]]
+                    </span>
                     <br/>
                     <span ng-repeat="player in game.players"
                           class="label label-info [[player.team]]-team">
