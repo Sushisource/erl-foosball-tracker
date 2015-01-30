@@ -11,3 +11,9 @@ Don't run this public-facing. It has rudimentary toy authentication.
 * [ChicagoBoss](http://www.chicagoboss.org/)
 * [CoffeeScript](http://coffeescript.org/)
 * [Postgres](http://www.postgresql.org/)
+
+
+##Building
+In the directory you cloned, run:
+rebar get-deps
+rebar compile
