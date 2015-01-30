@@ -15,5 +15,5 @@ Don't run this public-facing. It has rudimentary toy authentication.
 
 ##Building
 In the directory you cloned, run:
-rebar get-deps
-rebar compile
+* rebar get-deps
+* rebar compile
