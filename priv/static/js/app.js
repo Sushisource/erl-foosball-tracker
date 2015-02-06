@@ -12,14 +12,14 @@ angular.module('foosball', ['foosballServices', 'ngRoute']).
         when('/login',
             {templateUrl: 'static/tmpl/login.html',
              controller: 'LoginCtrl'}).
+        when('/newplayer',
+            {templateUrl: 'static/tmpl/nuplayer.html',
+             controller: 'LoginCtrl'}).
         when('/game/:gameid',
             {templateUrl: 'static/tmpl/ingame.html',
              controller: 'GameCtrl'}).
         when('/recgame',
             {templateUrl: 'static/tmpl/recordgame.html',
-             controller: 'RecGameCtrl'}).
-        when('/newplayer',
-            {templateUrl: 'static/tmpl/nuplayer.html',
              controller: 'RecGameCtrl'}).
         otherwise({redirectTo: '/'});
 }]);

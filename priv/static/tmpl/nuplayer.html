@@ -1,15 +1,14 @@
 <div class="container-fluid">
     <h2>New Player Creation</h2>
-
     <form>
         <fieldset>
-            <label>Enter player name</label>
+            <label>Enter player name:</label>
             <input type="text" placeholder="Enter name" ng-model="uname">
             <br/>
             <button type="submit" class="btn btn-primary"
-                    ng-click="login()">Create
+                    ng-click="nuplayer_login()">Create
             </button>
-            <div class="alert" style="margin-top: 10px;"
+            <div class="alert alert-warning" style="margin-top: 10px;" role="alert"
                  ng-show="result">[[ result ]]
             </div>
         </fieldset>

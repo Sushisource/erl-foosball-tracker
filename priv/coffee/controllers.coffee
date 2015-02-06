@@ -122,8 +122,7 @@ foosball.controller 'LoginCtrl', ($scope, $location, $http, FoosballData, LoginS
       $scope.uid = data.player['id']
       if data.exists is true
         $scope.result = "Username already taken, try another"
-        $scope.iswear = true
       else
-        $scope.forcename()
+        LoginSvc.login(data.player['name'], data.player['id'])
     ).error (data, status, headers, config) ->
-      $scope.result = "Error logging in"
+      $scope.result = "Error logging in: #{data}"
