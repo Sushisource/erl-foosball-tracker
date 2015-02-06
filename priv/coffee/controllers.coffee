@@ -2,8 +2,8 @@ foosball = angular.module("foosball")
 
 foosball.controller 'WelcomeCtrl',
 ($scope, $location, $timeout, FoosballData, Game, PlayerGame, LoginSvc) ->
-  $scope.playername = LoginSvc.name
-  $scope.playerid = LoginSvc.id
+  $scope.playername = LoginSvc.name()
+  $scope.playerid = LoginSvc.id()
 
   Game.get
     limit: 5
@@ -49,12 +49,14 @@ foosball.controller 'WelcomeCtrl',
   # For recording an already plated game
   $scope.recordgame = () ->
     $location.path("/recgame")
-
+  # Logout
+  $scope.logout = () ->
+    LoginSvc.logout()
 
 foosball.controller 'GameCtrl',
 ($scope, $routeParams, Game, Score, LoginSvc) ->
   $scope.data = Game.get(id: $routeParams.gameid)
-  $scope.playerid = LoginSvc.id
+  $scope.playerid = LoginSvc.id()
 
   $scope.confirmscore = (type) ->
     #TODO: Actually use the type info, need to expand fb_score model
@@ -71,9 +73,7 @@ foosball.controller 'RecGameCtrl', ($scope, $location, FoosballData, HistoricalG
   $scope.yellowPlayers = []
   $scope.blackPlayers = []
   $scope.scoreAmts = [1..8]
-  $scope.players = FoosballData.query(
-    model: "fb_player"
-  )
+  $scope.players = FoosballData.query(model: "fb_player")
   pushr = (dest) ->
     for player in $scope.availablePlayers
       if player not in $scope.yellowPlayers && player not in $scope.blackPlayers
@@ -106,13 +106,16 @@ foosball.controller 'RecGameCtrl', ($scope, $location, FoosballData, HistoricalG
         $location.path("/")
 
 
-foosball.controller 'LoginCtrl', ($scope, $location, $http) ->
-  $scope.forcename = () ->
-    localStorage.setItem "playername", $scope.uname
-    localStorage.setItem "playerid", $scope.uid
-    $location.path "/"
+foosball.controller 'LoginCtrl', ($scope, $location, $http, FoosballData, LoginSvc) ->
+  $scope.players = FoosballData.query(model: "fb_player", (returned) ->
+    # Set a default selection in the dropdown once we've loaded players
+    $scope.selectedPlayer = returned[0]
+  )
 
   $scope.login = ->
+    LoginSvc.login($scope.selectedPlayer.name, $scope.selectedPlayer.id)
+
+  $scope.nuplayer_login = ->
     # send note to server
     $http(method: "POST", url: "/login", data: "loginName=" + $scope.uname
     ).success((data, status, headers, config) ->

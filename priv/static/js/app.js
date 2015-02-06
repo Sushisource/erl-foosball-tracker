@@ -1,6 +1,6 @@
 'use strict';
 /* App Module */
-angular.module('foosball', ['foosballServices']).
+angular.module('foosball', ['foosballServices', 'ngRoute']).
     config(['$interpolateProvider', '$routeProvider',
      function ($interpolateProvider, $routeProvider) {
        $interpolateProvider.startSymbol('[[');
@@ -17,6 +17,9 @@ angular.module('foosball', ['foosballServices']).
              controller: 'GameCtrl'}).
         when('/recgame',
             {templateUrl: 'static/tmpl/recordgame.html',
+             controller: 'RecGameCtrl'}).
+        when('/newplayer',
+            {templateUrl: 'static/tmpl/nuplayer.html',
              controller: 'RecGameCtrl'}).
         otherwise({redirectTo: '/'});
 }]);

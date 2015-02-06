@@ -1,0 +1,17 @@
+<div class="container-fluid">
+    <h2>New Player Creation</h2>
+
+    <form>
+        <fieldset>
+            <label>Enter player name</label>
+            <input type="text" placeholder="Enter name" ng-model="uname">
+            <br/>
+            <button type="submit" class="btn btn-primary"
+                    ng-click="login()">Create
+            </button>
+            <div class="alert" style="margin-top: 10px;"
+                 ng-show="result">[[ result ]]
+            </div>
+        </fieldset>
+    </form>
+</div>
