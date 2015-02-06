@@ -6,3 +6,4 @@ foosball.iml
 priv/static/js/*.map
 priv/static/js/*.js
 erl_crash.dump
+.vagrant/
