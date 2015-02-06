@@ -31,4 +31,6 @@ historical_game('POST', []) ->
 historical_game('GET', []) ->
   % STUBBED
   Params = Req:query_params(),
-  {json, [Params]}.
+  Mat = [[1,2,3],
+         [3,4,5]],
+  {json, [matrix:transpose(Mat)]}.
